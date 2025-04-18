@@ -2,7 +2,9 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
-import {ClerkProvider} from "@clerk/clerk-react"
+import {ClerkProvider} from '@clerk/clerk-react'
+import { BrowserRouter } from 'react-router-dom'
+import AuthProvider from './providers/AuthProvider.tsx'
 
 
 // Import your Publishable Key
@@ -15,7 +17,11 @@ if (!PUBLISHABLE_KEY) {
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
-      <App />
+      <AuthProvider>
+        <BrowserRouter>
+          <App/>
+        </BrowserRouter>
+      </AuthProvider>
     </ClerkProvider>
   </StrictMode>,
 )
